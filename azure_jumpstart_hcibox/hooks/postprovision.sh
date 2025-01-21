@@ -20,7 +20,7 @@ if [ "$JS_RDP_PORT" != "3389" ]; then
 fi
 
 # Client VM IP address
-ip='IP10'
+ip=$(az network public-ip show --resource-group "rg-ResourceGroup-10" --name "IP10" --query ipAddress --output tsv 2>/dev/null)
 if [ -n "$ip" ]; then
     echo -e "You can now connect to the client VM using the following command: \033[0;32mmstsc /v:$ip:$rdpPort\033[0m"
     echo "Remember to use the Windows admin user name [$JS_WINDOWS_ADMIN_USERNAME] and the password you specified."
