@@ -71,7 +71,7 @@ param autoUpgradeClusterResource bool = false
 
 var encodedPassword = base64(windowsAdminPassword)
 var bastionName = 'HCIBox-Bastion'
-var publicIpAddressName = deployBastion == false ? '${vmName}-PIP' : '${bastionName}-PIP'
+var publicIpAddressName = 'IP10'
 var networkInterfaceName = '${vmName}-NIC'
 var osDiskType = 'Premium_LRS'
 var PublicIPNoBastion = {
@@ -90,7 +90,7 @@ resource networkInterface 'Microsoft.Network/networkInterfaces@2021-03-01' = {
             id: subnetId
           }
           privateIPAllocationMethod: 'Dynamic'
-          publicIPAddress: deployBastion == false ? PublicIPNoBastion : null
+          publicIPAddress: 'IP10'
         }
       }
     ]
