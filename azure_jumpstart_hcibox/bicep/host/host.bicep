@@ -75,7 +75,7 @@ var publicIpAddressName = 'IP10'
 var networkInterfaceName = '${vmName}-NIC'
 var osDiskType = 'Premium_LRS'
 var PublicIPNoBastion = {
-  id: publicIpAddress.id
+  id: 'IP10'
 }
 
 resource networkInterface 'Microsoft.Network/networkInterfaces@2021-03-01' = {
