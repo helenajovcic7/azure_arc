@@ -27,11 +27,11 @@ if [[ $available -lt $minCores ]]; then
 fi
 
 # check for sku restriction
-restriction=$(az vm list-skus --location $AZURE_LOCATION --all --query "[?name=='$sku'].restrictions[0].reasonCode" -o tsv)
-if [[ $restriction == "NotAvailableForSubscription" ]]; then
-    echo "There is a restriction in the $AZURE_LOCATION region to deploy the required VM SKU. Exiting..."
-    exit 1
-fi
+#restriction=$(az vm list-skus --location $AZURE_LOCATION --all --query "[?name=='$sku'].restrictions[0].reasonCode" -o tsv)
+#if [[ $restriction == "NotAvailableForSubscription" ]]; then
+#    echo "There is a restriction in the $AZURE_LOCATION region to deploy the required VM SKU. Exiting..."
+#    exit 1
+#fi
 
 
 JS_WINDOWS_ADMIN_USERNAME='arcdemo'
