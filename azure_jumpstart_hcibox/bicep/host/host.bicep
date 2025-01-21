@@ -69,13 +69,19 @@ param autoDeployClusterResource bool = false
 @description('Choice to enable automatic upgrade of Azure Arc enabled HCI cluster resource after the client VM deployment is complete. Only applicable when autoDeployClusterResource is true. Default is false.')
 param autoUpgradeClusterResource bool = false
 
+@description('Name of the existing Public IP Address')
+param publicIpName string = 'IP10'
+
+@description('Resource group where the existing Public IP Address resides')
+param publicIpResourceGroup string = 'rg-ResourceGroup-10'
+
 var encodedPassword = base64(windowsAdminPassword)
 var bastionName = 'HCIBox-Bastion'
-var publicIpAddressName = 'IP10'
+var publicIpAddressName = '40.114.169.59'
 var networkInterfaceName = '${vmName}-NIC'
 var osDiskType = 'Premium_LRS'
 var PublicIPNoBastion = {
-  id: 'IP10'
+  id: '40.114.169.59'
 }
 
 resource networkInterface 'Microsoft.Network/networkInterfaces@2021-03-01' = {
@@ -90,24 +96,18 @@ resource networkInterface 'Microsoft.Network/networkInterfaces@2021-03-01' = {
             id: subnetId
           }
           privateIPAllocationMethod: 'Dynamic'
-          publicIPAddress: 'IP10'
+          publicIPAddress: {
+            id: existingPublicIp.id
+          }
         }
       }
     ]
   }
 }
 
-resource publicIpAddress 'Microsoft.Network/publicIpAddresses@2021-03-01' = if (deployBastion == false) {
-  name: publicIpAddressName
-  location: location
-  properties: {
-    publicIPAllocationMethod: 'Static'
-    publicIPAddressVersion: 'IPv4'
-    idleTimeoutInMinutes: 4
-  }
-  sku: {
-    name: 'Basic'
-  }
+resource existingPublicIp 'Microsoft.Network/publicIPAddresses@2023-05-01' existing = {
+  name: publicIpName
+  scope: resourceGroup(publicIpResourceGroup)
 }
 
 resource vm 'Microsoft.Compute/virtualMachines@2022-03-01' = {
@@ -263,4 +263,4 @@ resource vmBootstrap 'Microsoft.Compute/virtualMachines/extensions@2022-03-01' =
 }
 
 output adminUsername string = windowsAdminUsername
-output publicIP string = deployBastion == false ? concat(publicIpAddress.properties.ipAddress) : ''
+output publicIP string = deployBastion == false ? concat(existingPublicIp.properties.ipAddress) : ''
