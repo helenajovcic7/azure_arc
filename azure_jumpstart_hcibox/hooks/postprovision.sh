@@ -4,7 +4,7 @@
 if [ "$JS_RDP_PORT" != "3389" ]; then
     echo "Configuring NSG Rule for RDP..."
     az network nsg rule create \
-        --resource-group 'rg-ResourceGroup-10' \
+        --resource-group $AZURE_RESOURCE_GROUP \
         --nsg-name HCIBox-NSG \
         --name "RDP-$JS_RDP_PORT" \
         --description "Allow RDP" \
