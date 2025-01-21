@@ -20,7 +20,7 @@ if [ "$JS_RDP_PORT" != "3389" ]; then
 fi
 
 # Client VM IP address
-ip='40.114.169.59'
+ip='IP10'
 if [ -n "$ip" ]; then
     echo -e "You can now connect to the client VM using the following command: \033[0;32mmstsc /v:$ip:$rdpPort\033[0m"
     echo "Remember to use the Windows admin user name [$JS_WINDOWS_ADMIN_USERNAME] and the password you specified."
