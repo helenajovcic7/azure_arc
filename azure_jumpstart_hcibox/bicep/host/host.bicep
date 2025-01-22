@@ -70,18 +70,18 @@ param autoDeployClusterResource bool = false
 param autoUpgradeClusterResource bool = false
 
 @description('Name of the existing Public IP Address')
-param publicIpName string = 'IP3'
+param publicIpName string = 'IP1'
 
 @description('Resource group where the existing Public IP Address resides')
-param publicIpResourceGroup string = 'rg-ResourceGroup-3'
+param publicIpResourceGroup string = 'rg-ResourceGroup-1'
 
 var encodedPassword = base64(windowsAdminPassword)
 var bastionName = 'HCIBox-Bastion'
-var publicIpAddressName = '20.67.63.138'
+var publicIpAddressName = '4.231.71.165'
 var networkInterfaceName = '${vmName}-NIC'
 var osDiskType = 'Premium_LRS'
 var PublicIPNoBastion = {
-  id: '20.67.63.138'
+  id: '4.231.71.165'
 }
 
 resource networkInterface 'Microsoft.Network/networkInterfaces@2021-03-01' = {
